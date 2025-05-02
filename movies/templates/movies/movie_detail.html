@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ movie.name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .back-button {
+            background: #eee;
+            border: 1px solid #ccc;
+            padding: 6px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #ddd;
+        }
+
+        .movie-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .rating-text {
+            font-size: 16px;
+            color: gray;
+            margin-bottom: 30px;
+        }
+
+        .movie-container {
+            display: grid;
+            grid-template-columns: 400px 1fr; /* Lebih besar untuk gambar */
+            gap: 50px;
+            align-items: flex-start;
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .movie-info p {
+            margin: 6px 0;
+            font-size: 16px;
+        }
+
+        .synopsis {
+            margin-top: 30px;
+        }
+
+        .synopsis p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .movie-info p strong {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Movie Listings @ GV Cinema</h1>
+
+    <a href="{% url 'movie_list' %}" class="back-button">Back</a>
+
+    <div class="movie-title">{{ movie.name }}</div>
+
+<!-- Menjadi -->
+<div class="rating-text">
+    {% if movie.mpaa_type %}
+        ({{ movie.mpaa_type }}{% if movie.mpaa_label %}: {{ movie.mpaa_label }}{% endif %})
+    {% endif %}
+</div>
+
+    <div class="movie-container">
+        <img src="{% static movie.imgPath %}" alt="{{ movie.name }}" class="movie-poster">
+
+        <div>
+            <div class="section-title">Details</div>
+            <div class="movie-info">
+                <p><strong>Genre:</strong> 
+                    {% if movie.genres.all %}
+                        {{ movie.genres.all|join:", " }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </p>
+                <p><strong>Language:</strong> {{ movie.language }}</p>
+                <p><strong>Duration:</strong> {{ movie.duration }} minutes</p>
+                <p><strong>User Rating:</strong> {{ movie.userRating }}</p>
+            </div>
+
+            <div class="synopsis">
+                <div class="section-title">Synopsis</div>
+                <p>{{ movie.description }}</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

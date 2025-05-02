@@ -1,0 +1,28 @@
+"""
+    1. Mengambil semua movie yang ada
+    Movie.objects.all()
+
+    2. Menghitung jumlah movie yang ada
+    Movie.objects.count()
+
+    3. Membuat filter movie dengan kategori salah satu atribut dengan ketentuan lebih dari X
+
+    - filter user rating :
+    Movie.objects.filter(userRating__gt= X)
+    - filter durations :
+    Movie.objects.filter(duratioon__gt= X)
+    4. Mencari atribut movie dengan kata kunci tertentu
+    judul :
+    Movie.objects.filter(name__icontains='')
+    genre :
+    Movie.objects.filter(genre__icontains='')
+    5. Kombinasi filter : judul ATAU genre dan rating
+      Movie.objects.filter(
+           Q(name__icontains='') | Q(genre__icontains=''),
+            userRating__gte=
+     6. Mengurutkan berdasarkan nilai atribut yang naik (misal user rating) 
+    Movie.objects.order_by('-userRating')
+     7. Mengurutkan berdasarkan nilai atribut yang menurun (contoh disini atribut user rating)
+    Movie.objects.order_by('userRating')
+      8. Menghitung rata-rata userRating
+    Movie.objects.aggregate(avg=Avg('userRating'))"""
